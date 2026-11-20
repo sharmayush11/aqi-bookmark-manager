@@ -10,12 +10,15 @@ dotenv.config();
 
 const app = express();
 
+// Allowed frontend URLs
+const allowedOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+  : ["http://localhost:5173"];
+
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URL
-      ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
-      : "*",
+    origin: allowedOrigins,
   })
 );
 
